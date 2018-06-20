@@ -1,0 +1,3 @@
+<aura:event type="Component" description="Event to handle all checklist items change">
+    <aura:attribute name="checklistItems" type="ChecklistItem__c[]"/>
+</aura:event>

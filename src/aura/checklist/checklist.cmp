@@ -1,0 +1,36 @@
+<aura:component controller="ChecklistController">
+    <aura:attribute name="checklist" type="Checklist__c" description="Instance of user checklist"/>
+
+    <aura:attribute access="private" name="typeOptions" type="Combobox[]" description="List of options for checklist type"/>
+    <aura:attribute access="private" name="isChecklistChanged" type="Boolean" default="false" description="Determines whether the checklist has changed or not"/>
+    <aura:attribute access="private" name="hasChecklistItems" type="Boolean" default="false" description="Determines whether the checklist has checklist items or not"/>
+    <aura:attribute access="private" name="checklistItems" type="ChecklistItem__c[]" description="List of checklist items"/>
+    <aura:attribute access="private" name="checklistItemTable" type="Aura.Component[]" description="Placeholder for checklist item table component"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.onInitLoadContents}"/>
+    <aura:handler name="allChecklistItemsChangeEvt" event="c:allChecklistItemsChangedEvent" action="{!c.onAllChecklistItemsChange}"/>
+    <aura:registerEvent name="checklistReloadEvt" type="c:checklistReloadEvent"/>
+    
+    <div class="c-container">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem class="slds-p-bottom_small" size="12">
+                <lightning:input name="checklistname" label="Name" required="true" value="{!v.checklist.Name}" placeholder="Enter name here..." onchange="{!c.onChecklistChange}"/> 
+            </lightning:layoutItem>
+            <lightning:layoutItem class="slds-p-bottom_small" size="12">
+                <lightning:combobox name="checklisttype" label="Type" required="true" value="{!v.checklist.Type__c}" options="{!v.typeOptions}" onchange="{!c.onChecklistChange}"/> 
+            </lightning:layoutItem>
+            <aura:if isTrue="{!v.hasChecklistItems}">
+                <lightning:layoutItem size="12">
+                    {!v.checklistItemTable} 
+                </lightning:layoutItem>
+            </aura:if>
+            <aura:if isTrue="{!v.isChecklistChanged}">
+                <lightning:layoutItem class="slds-m-top_small slds-align_absolute-center" size="12">
+                    <lightning:button variant="brand" label="Save" onclick="{!c.onSaveChanges}"/>
+                    <lightning:button label="Cancel" onclick="{!c.onCancelChanges}"/>
+                </lightning:layoutItem>
+            </aura:if>
+        </lightning:layout>
+    </div>
+    
+</aura:component>

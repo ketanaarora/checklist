@@ -1,0 +1,3 @@
+<design:component label="User Checklist">
+    <design:attribute name="componentTitle" label="Title" default="Checklist" description="Title for the component"/>
+</design:component>

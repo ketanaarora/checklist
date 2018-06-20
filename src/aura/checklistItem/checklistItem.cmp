@@ -1,0 +1,20 @@
+<aura:component controller="ChecklistController">
+    <aura:attribute name="itemNumber" type="Integer" description="Item row number in items table"/>
+    <aura:attribute name="item" type="ChecklistItem__c" description="Instance of a checklist item"/>
+    
+    <aura:registerEvent name="checklistItemChangeEvt" type="c:checklistItemChangedEvent"/>
+
+    <tr>
+		<td scope="col" class="slds-cell-wrap">
+            <lightning:input value="{!v.item.Name}" required="true" 
+                             onchange="{!c.onChecklistItemChange}" variant="label-hidden"/>
+        </td>
+		<td scope="col" class="slds-cell-wrap">
+            <div class="slds-align_absolute-center">
+                <ui:inputCheckbox aura:id="isCompleted" value="{!v.item.IsCompleted__c}" class="slds-checkbox" 
+                	              labelClass="slds-checkbox__label" change="{!c.handleCompleteFlagChange}"/>
+            </div>
+        </td>
+    </tr>
+	
+</aura:component>
